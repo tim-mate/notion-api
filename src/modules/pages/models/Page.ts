@@ -7,7 +7,7 @@ interface Block {
   payload: Payload;
 }
 
-interface IPage {
+export interface IPage {
   title: string;
   owner: Types.ObjectId;
   favorite: boolean;
