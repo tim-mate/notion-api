@@ -8,7 +8,9 @@ class PageService {
     this.pagesRepository = pageModel;
   }
 
-  getAll() {}
+  getAll() {
+    return this.pagesRepository.find();
+  }
 
   getOne() {}
 

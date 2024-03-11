@@ -2,7 +2,11 @@ import { Request, Response } from "express";
 import PageService from "./pages.service";
 
 class PageController {
-  async getAll() {}
+  async getAll(_: Request, res: Response) {
+    const pages = await PageService.getAll();
+
+    res.json(pages);
+  }
 
   async getOne() {}
 
