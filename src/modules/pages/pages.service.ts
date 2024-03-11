@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { Page } from "./models/Page";
 
 class PageService {
@@ -7,15 +8,17 @@ class PageService {
     this.pagesRepository = pageModel;
   }
 
-  async getAll() {}
+  getAll() {}
 
-  async getOne() {}
+  getOne() {}
 
-  async add() {}
+  add(owner: Types.ObjectId) {
+    return this.pagesRepository.create({ owner });
+  }
 
-  async delete() {}
+  delete() {}
 
-  async updateStatus() {}
+  updateStatus() {}
 }
 
 export default new PageService(Page);

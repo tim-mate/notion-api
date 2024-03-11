@@ -15,3 +15,4 @@ pagesRouter.delete("/:id", PageController.delete);
 pagesRouter.patch("/:id/favorite", PageController.updateStatus);
 
 export default pagesRouter;
+
