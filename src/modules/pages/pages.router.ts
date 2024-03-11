@@ -1,18 +1,18 @@
 import express from "express";
 
 import PageController from "./pages.controller";
+import { ctrlWrapper } from "helpers";
 
 const pagesRouter = express.Router();
 
-pagesRouter.get("/", PageController.getAll);
+pagesRouter.get("/", ctrlWrapper(PageController.getAll));
 
-pagesRouter.get("/:id", PageController.getOne);
+pagesRouter.get("/:id", ctrlWrapper(PageController.getOne));
 
-pagesRouter.post("/", PageController.add);
+pagesRouter.post("/", ctrlWrapper(PageController.add));
 
-pagesRouter.delete("/:id", PageController.delete);
+pagesRouter.delete("/:id", ctrlWrapper(PageController.delete));
 
-pagesRouter.patch("/:id/favorite", PageController.updateStatus);
+pagesRouter.patch("/:id/favorite", ctrlWrapper(PageController.updateStatus));
 
 export default pagesRouter;
-
