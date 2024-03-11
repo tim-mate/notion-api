@@ -18,4 +18,4 @@ class PageService {
   async updateStatus() {}
 }
 
-export const pagesService = new PageService(Page);
+export default new PageService(Page);
