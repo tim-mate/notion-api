@@ -52,6 +52,15 @@ class PageService {
 
   //   return updatedPage;
   // }
+
+  async rename(id: Types.ObjectId, title: string) {
+    const updatedPage = await this.pagesRepository.findByIdAndUpdate(id, { title }, { new: true });
+    if (!updatedPage) {
+      throw HttpError(404);
+    }
+
+    return updatedPage;
+  }
 }
 
 export default new PageService(Page);

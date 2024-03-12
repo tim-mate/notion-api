@@ -48,6 +48,15 @@ class PageController {
 
   //   res.json(updatedPage);
   // }
+
+  async rename(req: Request, res: Response) {
+    const { title }: { title: string } = req.body;
+    const params = req.params;
+    const id: unknown = params.id;
+    const updatedPage = await PageService.rename(id as Types.ObjectId, title);
+
+    res.json(updatedPage);
+  }
 }
 
 export default new PageController();

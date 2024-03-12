@@ -52,4 +52,8 @@ export const updateStatusSchema = Joi.object({
   favorite: Joi.boolean().required(),
 });
 
+export const renameSchema = Joi.object({
+  title: Joi.string().required(),
+});
+
 export const Page = model("Page", pageSchema);

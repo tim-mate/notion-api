@@ -1,7 +1,7 @@
 import express from "express";
 
 import PageController from "./pages.controller";
-import { updateStatusSchema } from "./models/Page";
+import { updateStatusSchema, renameSchema } from "./models/Page";
 import { isValidId, validateBody } from "middlewares";
 import { ctrlWrapper } from "helpers";
 
@@ -21,5 +21,7 @@ pagesRouter.patch(
   validateBody(updateStatusSchema),
   ctrlWrapper(PageController.updateStatus),
 );
+
+pagesRouter.patch("/:id/title", isValidId, validateBody(renameSchema), ctrlWrapper(PageController.rename));
 
 export default pagesRouter;
