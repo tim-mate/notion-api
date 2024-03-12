@@ -24,7 +24,13 @@ class PageController {
     res.status(201).json(createdPage);
   }
 
-  async delete() {}
+  async delete(req: Request, res: Response) {
+    const params = req.params;
+    const id: unknown = params.id;
+    const deletedPage = await PageService.delete(id as Types.ObjectId);
+
+    res.json(deletedPage);
+  }
 
   async updateStatus() {}
 }

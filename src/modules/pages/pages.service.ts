@@ -26,7 +26,14 @@ class PageService {
     return this.pagesRepository.create({ owner });
   }
 
-  delete() {}
+  async delete(id: Types.ObjectId) {
+    const deletedPage = await this.pagesRepository.findByIdAndDelete(id);
+    if (!deletedPage) {
+      throw HttpError(404);
+    }
+
+    return deletedPage;
+  }
 
   updateStatus() {}
 }
