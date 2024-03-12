@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { Request, Response } from "express";
 import PageService from "./pages.service";
 
@@ -8,7 +9,13 @@ class PageController {
     res.json(pages);
   }
 
-  async getOne() {}
+  async getOne(req: Request, res: Response) {
+    const params = req.params;
+    const id: unknown = params.id;
+    const foundPage = await PageService.getOne(id as Types.ObjectId);
+
+    res.json(foundPage);
+  }
 
   async add(req: Request, res: Response) {
     const { owner } = req.body;

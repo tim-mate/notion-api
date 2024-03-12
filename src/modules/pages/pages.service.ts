@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import { Page } from "./models/Page";
+import { HttpError } from "helpers";
 
 class PageService {
   public pagesRepository;
@@ -12,7 +13,14 @@ class PageService {
     return this.pagesRepository.find();
   }
 
-  getOne() {}
+  async getOne(id: Types.ObjectId) {
+    const foundPage = await this.pagesRepository.findById(id);
+    if (!foundPage) {
+      throw HttpError(404);
+    }
+
+    return foundPage;
+  }
 
   add(owner: Types.ObjectId) {
     return this.pagesRepository.create({ owner });
