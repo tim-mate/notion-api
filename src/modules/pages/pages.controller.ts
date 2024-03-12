@@ -32,7 +32,22 @@ class PageController {
     res.json(deletedPage);
   }
 
-  async updateStatus() {}
+  async updateStatus(req: Request, res: Response) {
+    const { favorite }: { favorite: boolean } = req.body;
+    const params = req.params;
+    const id: unknown = params.id;
+    const updatedPage = await PageService.updateStatus(id as Types.ObjectId, favorite);
+
+    res.json(updatedPage);
+  }
+
+  // async updateStatus(req: Request, res: Response) {
+  //   const params = req.params;
+  //   const id: unknown = params.id;
+  //   const updatedPage = await PageService.updateStatus(id as Types.ObjectId, req.body);
+
+  //   res.json(updatedPage);
+  // }
 }
 
 export default new PageController();

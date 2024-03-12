@@ -35,7 +35,23 @@ class PageService {
     return deletedPage;
   }
 
-  updateStatus() {}
+  async updateStatus(id: Types.ObjectId, favorite: boolean) {
+    const updatedPage = await this.pagesRepository.findByIdAndUpdate(id, { favorite }, { new: true });
+    if (!updatedPage) {
+      throw HttpError(404);
+    }
+
+    return updatedPage;
+  }
+
+  // async updateStatus(id: Types.ObjectId, newStatus: { favorite: boolean }) {
+  //   const updatedPage = await this.pagesRepository.findByIdAndUpdate(id, newStatus, { new: true });
+  //   if (!updatedPage) {
+  //     throw HttpError(404);
+  //   }
+
+  //   return updatedPage;
+  // }
 }
 
 export default new PageService(Page);

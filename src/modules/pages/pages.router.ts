@@ -1,7 +1,8 @@
 import express from "express";
 
 import PageController from "./pages.controller";
-import { isValidId } from "middlewares";
+import { updateStatusSchema } from "./models/Page";
+import { isValidId, validateBody } from "middlewares";
 import { ctrlWrapper } from "helpers";
 
 const pagesRouter = express.Router();
@@ -14,6 +15,11 @@ pagesRouter.post("/", ctrlWrapper(PageController.add));
 
 pagesRouter.delete("/:id", isValidId, ctrlWrapper(PageController.delete));
 
-pagesRouter.patch("/:id/favorite", isValidId, ctrlWrapper(PageController.updateStatus));
+pagesRouter.patch(
+  "/:id/favorite",
+  isValidId,
+  validateBody(updateStatusSchema),
+  ctrlWrapper(PageController.updateStatus),
+);
 
 export default pagesRouter;

@@ -1,4 +1,5 @@
 import { Schema, Types, model } from "mongoose";
+import Joi from "joi";
 
 type Payload = { [key: string]: unknown };
 
@@ -46,5 +47,9 @@ const pageSchema = new Schema<IPage>(
   },
   { versionKey: false, timestamps: true },
 );
+
+export const updateStatusSchema = Joi.object({
+  favorite: Joi.boolean().required(),
+});
 
 export const Page = model("Page", pageSchema);
