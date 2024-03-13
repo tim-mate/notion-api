@@ -15,15 +15,18 @@ export interface IPage {
   blocks: Types.DocumentArray<Block>;
 }
 
+const BLOCK_TYPES = ["text", "table"];
+
 const blockSchema = new Schema<Block>(
   {
     type: {
       type: String,
+      enum: BLOCK_TYPES,
       required: true,
     },
     payload: {
       type: Schema.Types.Mixed,
-      default: {},
+      required: true,
     },
   },
   { versionKey: false, timestamps: true },
@@ -54,6 +57,12 @@ export const updateStatusSchema = Joi.object({
 
 export const renameSchema = Joi.object({
   title: Joi.string().required(),
+});
+
+export const addBlockSchema = Joi.object({
+  type: Joi.string()
+    .valid(...BLOCK_TYPES)
+    .required(),
 });
 
 export const Page = model("Page", pageSchema);

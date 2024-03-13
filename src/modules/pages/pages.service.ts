@@ -1,4 +1,6 @@
 import { Types } from "mongoose";
+
+import { BlockType } from "types";
 import { Page } from "./models/Page";
 import { HttpError } from "helpers";
 
@@ -59,6 +61,37 @@ class PageService {
       throw HttpError(404);
     }
 
+    return updatedPage;
+  }
+
+  async addBlock(id: Types.ObjectId, type: BlockType) {
+    const page = await this.pagesRepository.findById(id);
+    if (!page) {
+      throw HttpError(404);
+    }
+
+    let payload;
+
+    switch (type) {
+      case "text":
+        payload = {
+          content: "",
+          color: "black",
+          backgroundColor: "white",
+          bold: false,
+          italic: false,
+          underlined: false,
+          strikethrough: false,
+        };
+        break;
+
+      default:
+        payload = { content: "" };
+    }
+
+    const newBlock = { type, payload };
+    page.blocks.push(newBlock);
+    const updatedPage = await page.save();
     return updatedPage;
   }
 }

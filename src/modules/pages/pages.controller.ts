@@ -1,6 +1,8 @@
 import { Types } from "mongoose";
 import { Request, Response } from "express";
+
 import PageService from "./pages.service";
+import { BlockType } from "types";
 
 class PageController {
   async getAll(_: Request, res: Response) {
@@ -50,12 +52,21 @@ class PageController {
   // }
 
   async rename(req: Request, res: Response) {
-    const { title }: { title: string } = req.body;
     const params = req.params;
     const id: unknown = params.id;
+    const { title }: { title: string } = req.body;
     const updatedPage = await PageService.rename(id as Types.ObjectId, title);
 
     res.json(updatedPage);
+  }
+
+  async addBlock(req: Request, res: Response) {
+    const params = req.params;
+    const id: unknown = params.id;
+    const { type }: { type: BlockType } = req.body;
+    const updatedPage = await PageService.addBlock(id as Types.ObjectId, type);
+
+    res.status(201).json(updatedPage);
   }
 }
 
