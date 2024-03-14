@@ -1,6 +1,8 @@
 import { Schema, Types, Model, model } from "mongoose";
-import { BlockType, BlockPayload } from "types";
 import Joi from "joi";
+
+import { BlockType, BlockPayload } from "types";
+import { BLOCK_TYPES } from "../../../constants";
 
 interface Block {
   _id: Types.ObjectId;
@@ -23,8 +25,6 @@ type PageDocumentProps = {
 };
 
 type PageModelType = Model<IPage, object, PageDocumentProps>;
-
-const BLOCK_TYPES = ["text", "table"];
 
 const blockSchema = new Schema<Block>(
   {
@@ -60,6 +60,8 @@ const pageSchema = new Schema<IPage, PageModelType>(
   { versionKey: false, timestamps: true },
 );
 
+export const Page = model<IPage, PageModelType>("Page", pageSchema);
+
 export const updateStatusSchema = Joi.object({
   favorite: Joi.boolean().required(),
 });
@@ -74,7 +76,7 @@ export const addBlockSchema = Joi.object({
     .required(),
 });
 
-export const updateBlockSchema = Joi.object({
+export const updateTextBlockSchema = Joi.object({
   payload: Joi.object({
     content: Joi.string(),
     color: Joi.string(),
@@ -88,4 +90,12 @@ export const updateBlockSchema = Joi.object({
     .or("content", "color", "backgroundColor", "bold", "italic", "underlined", "strikethrough"),
 });
 
-export const Page = model<IPage, PageModelType>("Page", pageSchema);
+export const updateTableBlockSchema = Joi.object({
+  payload: Joi.object({
+    table: Joi.array().items(Joi.array().items(Joi.string())).min(1),
+    headerRow: Joi.boolean(),
+    headerColumn: Joi.boolean(),
+  })
+    .required()
+    .or("table", "headerRow", "headerColumn"),
+});

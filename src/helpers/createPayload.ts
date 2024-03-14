@@ -1,6 +1,11 @@
 import { BlockType, BlockPayload } from "types";
 import { HttpError } from "./HttpError";
 
+// enum PayloadType {
+//   Text = "TEXT",
+//   Table = "TABLE",
+// }
+
 export const createPayload = (type: BlockType): BlockPayload => {
   let payload;
 
@@ -16,9 +21,20 @@ export const createPayload = (type: BlockType): BlockPayload => {
         strikethrough: false,
       };
       break;
+    case "table":
+      payload = {
+        table: [
+          ["", ""],
+          ["", ""],
+          ["", ""],
+        ],
+        headerRow: false,
+        headerColumn: false,
+      };
+      break;
 
     default:
-      throw HttpError(404, `Type ${type} is not supported`);
+      throw HttpError(400, `Type ${type} is not supported`);
   }
 
   return payload;
