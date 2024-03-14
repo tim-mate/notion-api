@@ -111,6 +111,22 @@ class PageService {
     const updatedPage = await page.save();
     return updatedPage;
   }
+
+  async deleteBlock(pageId: Types.ObjectId, blockId: Types.ObjectId) {
+    const page = await this.pagesRepository.findById(pageId);
+    if (!page) {
+      throw HttpError(404);
+    }
+
+    const block = page.blocks.id(blockId);
+    if (!block) {
+      throw HttpError(404);
+    }
+
+    block.deleteOne();
+    const updatedPage = await page.save();
+    return updatedPage;
+  }
 }
 
 export default new PageService(Page);

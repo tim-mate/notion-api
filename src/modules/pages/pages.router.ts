@@ -33,6 +33,6 @@ pagesRouter.patch(
   ctrlWrapper(PageController.updateBlock),
 );
 
-// pagesRouter.delete("/:pageId/blocks/:blockId", ctrlWrapper(PageController.deleteBlock));
+pagesRouter.delete("/:pageId/blocks/:blockId", ctrlWrapper(PageController.deleteBlock));
 
 export default pagesRouter;

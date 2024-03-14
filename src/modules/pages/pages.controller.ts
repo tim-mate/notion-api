@@ -79,6 +79,15 @@ class PageController {
 
     res.json(updatedPage);
   }
+
+  async deleteBlock(req: Request, res: Response) {
+    const params = req.params;
+    const pageId: unknown = params.pageId;
+    const blockId: unknown = params.blockId;
+    const updatedPage = await PageService.deleteBlock(pageId as Types.ObjectId, blockId as Types.ObjectId);
+
+    res.json(updatedPage);
+  }
 }
 
 export default new PageController();
