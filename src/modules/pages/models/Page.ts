@@ -92,7 +92,20 @@ export const updateTextBlockSchema = Joi.object({
 
 export const updateTableBlockSchema = Joi.object({
   payload: Joi.object({
-    table: Joi.array().items(Joi.array().items(Joi.string())).min(1),
+    table: Joi.array()
+      .items(
+        Joi.array().items(
+          Joi.object({
+            text: Joi.string(),
+            styles: Joi.object(),
+          }),
+        ),
+      )
+      .min(1),
+    styles: Joi.object({
+      rows: Joi.array().items(Joi.object()),
+      columns: Joi.array().items(Joi.object()),
+    }),
     headerRow: Joi.boolean(),
     headerColumn: Joi.boolean(),
   })

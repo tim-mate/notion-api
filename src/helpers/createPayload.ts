@@ -1,4 +1,5 @@
 import { BlockType, BlockPayload } from "types";
+import { DEFAULT_COLOR_STYLES, DEFAULT_TEXT_STYLES } from "../constants";
 import { HttpError } from "./HttpError";
 
 // enum PayloadType {
@@ -13,21 +14,29 @@ export const createPayload = (type: BlockType): BlockPayload => {
     case "text":
       payload = {
         content: "",
-        color: "black",
-        backgroundColor: "white",
-        bold: false,
-        italic: false,
-        underlined: false,
-        strikethrough: false,
+        ...DEFAULT_TEXT_STYLES,
       };
       break;
     case "table":
       payload = {
         table: [
-          ["", ""],
-          ["", ""],
-          ["", ""],
+          [
+            { text: "", styles: DEFAULT_TEXT_STYLES },
+            { text: "", styles: DEFAULT_TEXT_STYLES },
+          ],
+          [
+            { text: "", styles: DEFAULT_TEXT_STYLES },
+            { text: "", styles: DEFAULT_TEXT_STYLES },
+          ],
+          [
+            { text: "", styles: DEFAULT_TEXT_STYLES },
+            { text: "", styles: DEFAULT_TEXT_STYLES },
+          ],
         ],
+        styles: {
+          rows: [DEFAULT_COLOR_STYLES, DEFAULT_COLOR_STYLES, DEFAULT_COLOR_STYLES],
+          columns: [DEFAULT_COLOR_STYLES, DEFAULT_COLOR_STYLES],
+        },
         headerRow: false,
         headerColumn: false,
       };
