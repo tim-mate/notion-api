@@ -1,7 +1,15 @@
 import { CustomError } from "types";
 
+// enum HttpStatus {
+//   BadRequest = 400,
+//   Unauthorized = 401,
+//   Forbidden = 403,
+//   NotFound = 404,
+//   Conflict = 409,
+// }
+
 interface MessageList {
-  [key: number]: string;
+  [status: number]: string;
 }
 
 const messageList: MessageList = {

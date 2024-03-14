@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import { ObjectSchema } from "joi";
+
 import { HttpError } from "helpers";
 
-interface JoiSchema {
-  validate: (body: unknown) => { error?: { message: string } };
-}
-
-export const validateBody = (schema: JoiSchema) => {
+export const validateBody = (schema: ObjectSchema<unknown>) => {
   const fn = (req: Request, _: Response, next: NextFunction) => {
     const { error } = schema.validate(req.body);
     if (error) {

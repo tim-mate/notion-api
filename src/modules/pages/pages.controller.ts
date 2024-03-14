@@ -1,9 +1,8 @@
 import { Types } from "mongoose";
 import { Request, Response } from "express";
 
+import { BlockType, BlockPayload } from "types";
 import PageService from "./pages.service";
-import { BlockPayload } from "./models/Page";
-import { BlockType } from "types";
 
 class PageController {
   async getAll(_: Request, res: Response) {
@@ -36,21 +35,13 @@ class PageController {
   }
 
   async updateStatus(req: Request, res: Response) {
-    const { favorite }: { favorite: boolean } = req.body;
     const params = req.params;
     const id: unknown = params.id;
+    const { favorite }: { favorite: boolean } = req.body;
     const updatedPage = await PageService.updateStatus(id as Types.ObjectId, favorite);
 
     res.json(updatedPage);
   }
-
-  // async updateStatus(req: Request, res: Response) {
-  //   const params = req.params;
-  //   const id: unknown = params.id;
-  //   const updatedPage = await PageService.updateStatus(id as Types.ObjectId, req.body);
-
-  //   res.json(updatedPage);
-  // }
 
   async rename(req: Request, res: Response) {
     const params = req.params;

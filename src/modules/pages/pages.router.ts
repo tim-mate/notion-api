@@ -1,7 +1,7 @@
 import express from "express";
 
-import PageController from "./pages.controller";
 import { updateStatusSchema, renameSchema, addBlockSchema, updateBlockSchema } from "./models/Page";
+import PageController from "./pages.controller";
 import { isValidId, validateBody } from "middlewares";
 import { ctrlWrapper } from "helpers";
 

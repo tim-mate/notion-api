@@ -1,43 +1,32 @@
 import { Schema, Types, Model, model } from "mongoose";
-import { BlockType } from "types";
+import { BlockType, BlockPayload } from "types";
 import Joi from "joi";
 
-export type BlockPayload = { [key: string]: unknown };
-
-export interface BlockDto {
+interface Block {
   _id: Types.ObjectId;
   type: BlockType;
   payload: BlockPayload;
 }
 
-// export interface CreateBlockDto {
-//   type: BlockType;
-//   payload: BlockPayload;
-// }
-
-// export interface UpdateBlockDto {
-//   payload: BlockPayload;
-// }
-
-export interface IPage {
+interface IPage {
   title: string;
   owner: Types.ObjectId;
   favorite: boolean;
-  blocks: BlockDto[];
+  blocks: Block[];
 }
 
 type PageDocumentProps = {
   title: string;
   owner: Types.ObjectId;
   favorite: boolean;
-  blocks: Types.DocumentArray<BlockDto>;
+  blocks: Types.DocumentArray<Block>;
 };
 
 type PageModelType = Model<IPage, object, PageDocumentProps>;
 
 const BLOCK_TYPES = ["text", "table"];
 
-const blockSchema = new Schema<BlockDto>(
+const blockSchema = new Schema<Block>(
   {
     type: {
       type: String,

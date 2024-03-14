@@ -1,7 +1,8 @@
+import { createPayload } from "./../../helpers/createPayload";
 import { Types } from "mongoose";
 
-import { BlockType } from "types";
-import { Page, BlockPayload } from "./models/Page";
+import { BlockType, BlockPayload } from "types";
+import { Page } from "./models/Page";
 import { HttpError } from "helpers";
 
 class PageService {
@@ -46,15 +47,6 @@ class PageService {
     return updatedPage;
   }
 
-  // async updateStatus(id: Types.ObjectId, newStatus: { favorite: boolean }) {
-  //   const updatedPage = await this.pagesRepository.findByIdAndUpdate(id, newStatus, { new: true });
-  //   if (!updatedPage) {
-  //     throw HttpError(404);
-  //   }
-
-  //   return updatedPage;
-  // }
-
   async rename(id: Types.ObjectId, title: string) {
     const updatedPage = await this.pagesRepository.findByIdAndUpdate(id, { title }, { new: true });
     if (!updatedPage) {
@@ -70,25 +62,7 @@ class PageService {
       throw HttpError(404);
     }
 
-    let payload;
-
-    switch (type) {
-      case "text":
-        payload = {
-          content: "",
-          color: "black",
-          backgroundColor: "white",
-          bold: false,
-          italic: false,
-          underlined: false,
-          strikethrough: false,
-        };
-        break;
-
-      default:
-        payload = { content: "" };
-    }
-
+    const payload = createPayload(type);
     const newBlock = { type, payload };
     page.blocks.push(newBlock);
     const updatedPage = await page.save();
@@ -101,12 +75,11 @@ class PageService {
       throw HttpError(404);
     }
 
-    const blockIndex = page.blocks.findIndex((block) => block._id.equals(blockId));
-    if (blockIndex === -1) {
+    const block = page.blocks.id(blockId);
+    if (!block) {
       throw HttpError(404);
     }
 
-    const block = page.blocks[blockIndex];
     block.payload = { ...block.payload, ...payload };
     const updatedPage = await page.save();
     return updatedPage;

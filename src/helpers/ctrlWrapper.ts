@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-type Controller = (req: Request, res: Response, next: NextFunction) => void;
+type Controller = (req: Request, res: Response, next: NextFunction) => Promise<void> | void;
 
 export const ctrlWrapper = (controller: Controller) => {
   const fn = async (req: Request, res: Response, next: NextFunction) => {
