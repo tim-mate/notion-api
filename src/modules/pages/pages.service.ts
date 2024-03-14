@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 import { BlockType } from "types";
-import { Page } from "./models/Page";
+import { Page, BlockPayload } from "./models/Page";
 import { HttpError } from "helpers";
 
 class PageService {
@@ -91,6 +91,23 @@ class PageService {
 
     const newBlock = { type, payload };
     page.blocks.push(newBlock);
+    const updatedPage = await page.save();
+    return updatedPage;
+  }
+
+  async updateBlock(pageId: Types.ObjectId, blockId: Types.ObjectId, payload: BlockPayload) {
+    const page = await this.pagesRepository.findById(pageId);
+    if (!page) {
+      throw HttpError(404);
+    }
+
+    const blockIndex = page.blocks.findIndex((block) => block._id.equals(blockId));
+    if (blockIndex === -1) {
+      throw HttpError(404);
+    }
+
+    const block = page.blocks[blockIndex];
+    block.payload = { ...block.payload, ...payload };
     const updatedPage = await page.save();
     return updatedPage;
   }

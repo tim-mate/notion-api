@@ -1,23 +1,43 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, Types, Model, model } from "mongoose";
+import { BlockType } from "types";
 import Joi from "joi";
 
-type Payload = { [key: string]: unknown };
+export type BlockPayload = { [key: string]: unknown };
 
-interface Block {
-  type: string;
-  payload: Payload;
+export interface BlockDto {
+  _id: Types.ObjectId;
+  type: BlockType;
+  payload: BlockPayload;
 }
+
+// export interface CreateBlockDto {
+//   type: BlockType;
+//   payload: BlockPayload;
+// }
+
+// export interface UpdateBlockDto {
+//   payload: BlockPayload;
+// }
 
 export interface IPage {
   title: string;
   owner: Types.ObjectId;
   favorite: boolean;
-  blocks: Types.DocumentArray<Block>;
+  blocks: BlockDto[];
 }
+
+type PageDocumentProps = {
+  title: string;
+  owner: Types.ObjectId;
+  favorite: boolean;
+  blocks: Types.DocumentArray<BlockDto>;
+};
+
+type PageModelType = Model<IPage, object, PageDocumentProps>;
 
 const BLOCK_TYPES = ["text", "table"];
 
-const blockSchema = new Schema<Block>(
+const blockSchema = new Schema<BlockDto>(
   {
     type: {
       type: String,
@@ -32,7 +52,7 @@ const blockSchema = new Schema<Block>(
   { versionKey: false, timestamps: true },
 );
 
-const pageSchema = new Schema<IPage>(
+const pageSchema = new Schema<IPage, PageModelType>(
   {
     title: {
       type: String,
@@ -65,4 +85,18 @@ export const addBlockSchema = Joi.object({
     .required(),
 });
 
-export const Page = model("Page", pageSchema);
+export const updateBlockSchema = Joi.object({
+  payload: Joi.object({
+    content: Joi.string(),
+    color: Joi.string(),
+    backgroundColor: Joi.string(),
+    bold: Joi.boolean(),
+    italic: Joi.boolean(),
+    underlined: Joi.boolean(),
+    strikethrough: Joi.boolean(),
+  })
+    .required()
+    .or("content", "color", "backgroundColor", "bold", "italic", "underlined", "strikethrough"),
+});
+
+export const Page = model<IPage, PageModelType>("Page", pageSchema);

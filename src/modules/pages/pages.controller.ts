@@ -2,6 +2,7 @@ import { Types } from "mongoose";
 import { Request, Response } from "express";
 
 import PageService from "./pages.service";
+import { BlockPayload } from "./models/Page";
 import { BlockType } from "types";
 
 class PageController {
@@ -67,6 +68,16 @@ class PageController {
     const updatedPage = await PageService.addBlock(id as Types.ObjectId, type);
 
     res.status(201).json(updatedPage);
+  }
+
+  async updateBlock(req: Request, res: Response) {
+    const params = req.params;
+    const pageId: unknown = params.pageId;
+    const blockId: unknown = params.blockId;
+    const { payload }: { payload: BlockPayload } = req.body;
+    const updatedPage = await PageService.updateBlock(pageId as Types.ObjectId, blockId as Types.ObjectId, payload);
+
+    res.json(updatedPage);
   }
 }
 

@@ -1,7 +1,7 @@
 import express from "express";
 
 import PageController from "./pages.controller";
-import { updateStatusSchema, renameSchema, addBlockSchema } from "./models/Page";
+import { updateStatusSchema, renameSchema, addBlockSchema, updateBlockSchema } from "./models/Page";
 import { isValidId, validateBody } from "middlewares";
 import { ctrlWrapper } from "helpers";
 
@@ -26,7 +26,12 @@ pagesRouter.patch("/:id/title", isValidId, validateBody(renameSchema), ctrlWrapp
 
 pagesRouter.post("/:id/blocks", isValidId, validateBody(addBlockSchema), ctrlWrapper(PageController.addBlock));
 
-// pagesRouter.patch("/:pageId/blocks/:blockId", ctrlWrapper(PageController.updateBlock));
+pagesRouter.patch(
+  "/:pageId/blocks/:blockId",
+  isValidId,
+  validateBody(updateBlockSchema),
+  ctrlWrapper(PageController.updateBlock),
+);
 
 // pagesRouter.delete("/:pageId/blocks/:blockId", ctrlWrapper(PageController.deleteBlock));
 
