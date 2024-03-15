@@ -96,7 +96,7 @@ export const updateTableBlockSchema = Joi.object({
       .items(
         Joi.array().items(
           Joi.object({
-            text: Joi.string(),
+            text: Joi.string().allow(""),
             styles: Joi.object(),
           }),
         ),
@@ -110,5 +110,5 @@ export const updateTableBlockSchema = Joi.object({
     headerColumn: Joi.boolean(),
   })
     .required()
-    .or("table", "headerRow", "headerColumn"),
+    .or("table", "styles", "headerRow", "headerColumn"),
 });
