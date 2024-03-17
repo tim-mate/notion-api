@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -99,7 +100,9 @@ class UserService {
     return token;
   }
 
-  logout() {}
+  async logout(id: Types.ObjectId) {
+    await this.usersRepository.findByIdAndUpdate(id, { token: null });
+  }
 
   getCurrent() {}
 }

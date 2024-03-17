@@ -1,21 +1,10 @@
-import { Request, Response, NextFunction } from "express";
-import { Types, Document } from "mongoose";
+import { Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
-import { User, IUser } from "modules/users/models/User";
+import { User } from "modules/users/models/User";
 import { HttpError, ObjectID } from "../helpers";
-
-type UserDocument =
-  | (Document<unknown, object, IUser> &
-      IUser & {
-        _id: Types.ObjectId;
-      })
-  | null;
-
-interface AuthenticatedRequest extends Request {
-  user?: UserDocument;
-}
+import { AuthenticatedRequest } from "shared/types";
 
 dotenv.config();
 const { SECRET_KEY } = process.env;

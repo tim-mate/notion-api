@@ -2,7 +2,7 @@ import express from "express";
 
 import { signupSchema, verifyEmailSchema, loginSchema } from "./models/User";
 import UserController from "./users.controller";
-import { validateBody } from "shared/middlewares";
+import { validateBody, authenticate } from "shared/middlewares";
 import { ctrlWrapper } from "shared/helpers";
 
 const usersRouter = express.Router();
@@ -15,8 +15,8 @@ usersRouter.post("/verify", validateBody(verifyEmailSchema), ctrlWrapper(UserCon
 
 usersRouter.post("/login", validateBody(loginSchema), ctrlWrapper(UserController.login));
 
-usersRouter.post("/logout", ctrlWrapper(UserController.logout));
+usersRouter.post("/logout", authenticate, ctrlWrapper(UserController.logout));
 
-usersRouter.get("/current", ctrlWrapper(UserController.getCurrent));
+usersRouter.get("/current", authenticate, ctrlWrapper(UserController.getCurrent));
 
 export default usersRouter;
