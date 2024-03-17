@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { ObjectID } from "shared/helpers/ObjectID";
+import { ObjectID } from "shared/helpers";
 import { BlockType, BlockPayload } from "./types";
 import PageService from "./pages.service";
 

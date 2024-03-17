@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { Schema, Model, model } from "mongoose";
 
-interface IUser {
+export interface IUser {
   name: string;
   email: string;
   password: string;
@@ -9,7 +9,7 @@ interface IUser {
   verificationToken: string;
 }
 
-type UserModelType = Model<IUser>;
+export type UserModelType = Model<IUser>;
 
 const userSchema = new Schema<IUser, UserModelType>(
   {
