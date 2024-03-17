@@ -1,6 +1,6 @@
-import { BlockType, BlockPayload } from "types";
+import { BlockType, BlockPayload } from "../types";
 import { DEFAULT_COLOR_STYLES, DEFAULT_TEXT_STYLES } from "../constants";
-import { HttpError } from "./HttpError";
+import { HttpError } from "shared/helpers";
 
 // enum PayloadType {
 //   Text = "TEXT",

@@ -1,22 +1,18 @@
-import { Types } from "mongoose";
 import { Request, Response } from "express";
 
-import { BlockType, BlockPayload } from "types";
+import { ObjectID } from "shared/helpers/ObjectID";
+import { BlockType, BlockPayload } from "./types";
 import PageService from "./pages.service";
 
 class PageController {
   async getAll(_: Request, res: Response) {
     const pages = await PageService.getAll();
-
     res.json(pages);
   }
 
   async getOne(req: Request, res: Response) {
-    const params = req.params;
-    const id: unknown = params.id;
-    const foundPage = await PageService.getOne(id as Types.ObjectId);
-
-    res.json(foundPage);
+    const page = await PageService.getOne(ObjectID(req.params.id));
+    res.json(page);
   }
 
   async add(req: Request, res: Response) {
@@ -27,59 +23,45 @@ class PageController {
   }
 
   async delete(req: Request, res: Response) {
-    const params = req.params;
-    const id: unknown = params.id;
-    const deletedPage = await PageService.delete(id as Types.ObjectId);
-
+    const deletedPage = await PageService.delete(ObjectID(req.params.id));
     res.json(deletedPage);
   }
 
   async updateStatus(req: Request, res: Response) {
-    const params = req.params;
-    const id: unknown = params.id;
     const { favorite }: { favorite: boolean } = req.body;
-    const updatedPage = await PageService.updateStatus(id as Types.ObjectId, favorite);
+    const updatedPage = await PageService.updateStatus(ObjectID(req.params.id), favorite);
 
     res.json(updatedPage);
   }
 
   async rename(req: Request, res: Response) {
-    const params = req.params;
-    const id: unknown = params.id;
     const { title }: { title: string } = req.body;
-    const updatedPage = await PageService.rename(id as Types.ObjectId, title);
+    const updatedPage = await PageService.rename(ObjectID(req.params.id), title);
 
     res.json(updatedPage);
   }
 
   async addBlock(req: Request, res: Response) {
-    const params = req.params;
-    const id: unknown = params.id;
     const { type }: { type: BlockType } = req.body;
-    const updatedPage = await PageService.addBlock(id as Types.ObjectId, type);
+    const updatedPage = await PageService.addBlock(ObjectID(req.params.id), type);
 
     res.status(201).json(updatedPage);
   }
 
   async updateBlock(req: Request, res: Response) {
-    const params = req.params;
-    const pageId: unknown = params.pageId;
-    const blockId: unknown = params.blockId;
+    const { pageId, blockId } = req.params;
     const { payload }: { payload: BlockPayload } = req.body;
-    const updatedPage = await PageService.updateBlock(pageId as Types.ObjectId, blockId as Types.ObjectId, payload);
+    const updatedPage = await PageService.updateBlock(ObjectID(pageId), ObjectID(blockId), payload);
 
     res.json(updatedPage);
   }
 
   async deleteBlock(req: Request, res: Response) {
-    const params = req.params;
-    const pageId: unknown = params.pageId;
-    const blockId: unknown = params.blockId;
-    const updatedPage = await PageService.deleteBlock(pageId as Types.ObjectId, blockId as Types.ObjectId);
+    const { pageId, blockId } = req.params;
+    const updatedPage = await PageService.deleteBlock(ObjectID(pageId), ObjectID(blockId));
 
     res.json(updatedPage);
   }
 }
 
 export default new PageController();
-

@@ -1,4 +1,4 @@
-import { CustomError } from "types";
+import { CustomError } from "shared/types";
 
 // enum HttpStatus {
 //   BadRequest = 400,

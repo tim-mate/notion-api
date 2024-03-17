@@ -1,11 +1,42 @@
+import { Request, Response } from "express";
+import UsersService from "./users.service";
+
 class UserController {
-  signup() {}
+  async signup(req: Request, res: Response) {
+    const newUser = await UsersService.signup(req.body);
 
-  verifyEmail() {}
+    res.status(201).json({
+      user: { email: newUser.email },
+    });
+  }
 
-  resendVerificationEmail() {}
+  async verifyEmail(req: Request, res: Response) {
+    await UsersService.verifyEmail(req.params.verificationToken);
 
-  login() {}
+    res.json({
+      message: "Email is successfully verified",
+    });
+  }
+
+  async resendVerificationEmail(req: Request, res: Response) {
+    await UsersService.resendVerificationEmail(req.body.email);
+
+    res.json({
+      message: "Verification email was successfully sent",
+    });
+  }
+
+  async login(req: Request, res: Response) {
+    const { email }: { email: string } = req.body;
+    const token = await UsersService.login(req.body);
+
+    res.json({
+      token,
+      user: {
+        email,
+      },
+    });
+  }
 
   logout() {}
 

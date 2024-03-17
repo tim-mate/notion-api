@@ -1,28 +1,24 @@
-import { createPayload } from "./../../helpers/createPayload";
+import { createPayload } from "./helpers/createPayload";
 import { Types } from "mongoose";
 
-import { BlockType, BlockPayload } from "types";
+import { BlockType, BlockPayload } from "./types";
 import { Page } from "./models/Page";
-import { HttpError } from "helpers";
+import { HttpError } from "shared/helpers";
 
 class PageService {
-  public pagesRepository;
-
-  constructor(pageModel: typeof Page) {
-    this.pagesRepository = pageModel;
-  }
+  constructor(private pagesRepository: typeof Page) {}
 
   getAll() {
     return this.pagesRepository.find();
   }
 
   async getOne(id: Types.ObjectId) {
-    const foundPage = await this.pagesRepository.findById(id);
-    if (!foundPage) {
+    const page = await this.pagesRepository.findById(id);
+    if (!page) {
       throw HttpError(404);
     }
 
-    return foundPage;
+    return page;
   }
 
   add(owner: Types.ObjectId) {

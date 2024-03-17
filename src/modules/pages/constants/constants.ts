@@ -7,14 +7,3 @@ export const DEFAULT_TEXT_STYLES = {
   underlined: false,
   strikethrough: false,
 };
-
-// const DEFAULT_COLOR_STYLES = { color: "black", backgroundColor: "white" };
-
-// DEFAULT_COLOR_CONFIGURATION;
-// DEFAULT_COLORS;
-// DEFAULT_COLOR_SCHEME
-
-// enum DefaultStyles {
-//   Color = "black",
-//   BackgroundColor = "white",
-// }

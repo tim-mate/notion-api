@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
 
-import { updateTextBlockSchema, updateTableBlockSchema } from "modules/pages/models/Page";
-import { HttpError } from "helpers";
+import { updateTextBlockSchema, updateTableBlockSchema } from "../models/Page";
+import { HttpError } from "shared/helpers";
 
 export const validateUpdateBlockBody = (req: Request, _: Response, next: NextFunction) => {
   const { type } = req.params;

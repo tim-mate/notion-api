@@ -1,3 +1,4 @@
+import Joi from "joi";
 import { Schema, Model, model } from "mongoose";
 
 interface IUser {
@@ -40,3 +41,18 @@ const userSchema = new Schema<IUser, UserModelType>(
 );
 
 export const User = model<IUser, UserModelType>("User", userSchema);
+
+export const signupSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().required(),
+  password: Joi.number().min(6).required(),
+});
+
+export const verifyEmailSchema = Joi.object({
+  email: Joi.string().required(),
+});
+
+export const loginSchema = Joi.object({
+  email: Joi.string().required(),
+  password: Joi.string().min(6).required(),
+});
