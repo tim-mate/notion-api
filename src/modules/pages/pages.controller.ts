@@ -3,10 +3,18 @@ import { Request, Response } from "express";
 import { ObjectID } from "shared/helpers";
 import { BlockType, BlockPayload } from "./types";
 import PageService from "./pages.service";
+import { AuthenticatedRequest } from "shared/types";
+import { HttpError } from "shared/helpers";
 
 class PageController {
-  async getAll(_: Request, res: Response) {
-    const pages = await PageService.getAll();
+  async getAll(req: AuthenticatedRequest, res: Response) {
+    const user = req.user;
+    if (!user) {
+      throw HttpError(401);
+    }
+
+    const { page = 1, limit, favorite } = req.query;
+    const pages = await PageService.getAll(user._id, Number(page), Number(limit), Boolean(favorite));
     res.json(pages);
   }
 
@@ -15,10 +23,13 @@ class PageController {
     res.json(page);
   }
 
-  async add(req: Request, res: Response) {
-    const { owner } = req.body;
-    const createdPage = await PageService.add(owner);
+  async add(req: AuthenticatedRequest, res: Response) {
+    const user = req.user;
+    if (!user) {
+      throw HttpError(401);
+    }
 
+    const createdPage = await PageService.add(user._id);
     res.status(201).json(createdPage);
   }
 

@@ -8,8 +8,11 @@ import { HttpError } from "shared/helpers";
 class PageService {
   constructor(private pagesRepository: typeof Page) {}
 
-  getAll() {
-    return this.pagesRepository.find();
+  getAll(owner: Types.ObjectId, page: number, limit: number, favorite: boolean | undefined) {
+    const filter = favorite ? { owner, favorite } : { owner };
+    const options = limit ? { skip: limit * (page - 1), limit } : {};
+
+    return this.pagesRepository.find(filter, {}, options);
   }
 
   async getOne(id: Types.ObjectId) {
