@@ -23,7 +23,7 @@ export const authenticate = async (req: AuthenticatedRequest, _: Response, next:
     }
 
     const user = await User.findById(ObjectID(payload.id));
-    if (!user) {
+    if (!user || !user.token || user.token !== token) {
       next(HttpError(401));
     }
 

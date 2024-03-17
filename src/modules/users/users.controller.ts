@@ -42,7 +42,7 @@ class UserController {
   }
 
   async logout(req: AuthenticatedRequest, res: Response) {
-    const user = req.user;
+    const { user } = req;
     if (!user) {
       throw HttpError(401);
     }
@@ -51,7 +51,18 @@ class UserController {
     res.status(204).send();
   }
 
-  getCurrent() {}
+  async getCurrent(req: AuthenticatedRequest, res: Response) {
+    const { user } = req;
+    if (!user) {
+      throw HttpError(401);
+    }
+
+    res.json({
+      user: {
+        email: user.email,
+      },
+    });
+  }
 }
 
 export default new UserController();

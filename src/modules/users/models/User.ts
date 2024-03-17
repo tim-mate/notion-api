@@ -5,6 +5,7 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
+  token: string;
   isEmailVerified: boolean;
   verificationToken: string;
 }
@@ -26,6 +27,10 @@ const userSchema = new Schema<IUser, UserModelType>(
       type: String,
       required: [true, "Password is required"],
       minlength: 6,
+    },
+    token: {
+      type: String,
+      default: null,
     },
     isEmailVerified: {
       type: Boolean,

@@ -97,14 +97,13 @@ class UserService {
       id: user._id,
     };
     const token = jwt.sign(payload, SECRET_KEY!, { expiresIn: TOKEN_TTL });
+    await this.usersRepository.findByIdAndUpdate(user._id, { token });
     return token;
   }
 
   async logout(id: Types.ObjectId) {
     await this.usersRepository.findByIdAndUpdate(id, { token: null });
   }
-
-  getCurrent() {}
 }
 
 export default new UserService(User);
