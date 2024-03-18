@@ -3,8 +3,8 @@ import express from "express";
 import { validateBody, authenticate } from "shared/middlewares";
 import { ctrlWrapper } from "shared/helpers";
 import { updateStatusSchema, renameSchema, addBlockSchema } from "./models/Page";
-import PageController from "./pages.controller";
 import { isValidId, isValidType, validateUpdateBlockBody } from "./middlewares";
+import PageController from "./pages.controller";
 
 const pagesRouter = express.Router();
 
@@ -40,7 +40,7 @@ pagesRouter.post(
   ctrlWrapper(PageController.addBlock),
 );
 
-pagesRouter.delete("/:pageId/blocks/:blockId", authenticate, ctrlWrapper(PageController.deleteBlock));
+pagesRouter.delete("/:pageId/blocks/:blockId", authenticate, isValidId, ctrlWrapper(PageController.deleteBlock));
 
 pagesRouter.patch(
   "/:pageId/blocks/:blockId/:type",

@@ -1,12 +1,12 @@
 import { Schema, Types, Model, model } from "mongoose";
 import Joi from "joi";
 
-import { BlockType, BlockPayload } from "../types";
+import { BlockTypeAlias, BlockPayload } from "../types";
 import { BLOCK_TYPES } from "../constants";
 
 interface Block {
   _id: Types.ObjectId;
-  type: BlockType;
+  type: BlockTypeAlias;
   payload: BlockPayload;
 }
 

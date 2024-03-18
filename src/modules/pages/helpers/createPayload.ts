@@ -1,23 +1,19 @@
-import { BlockType, BlockPayload } from "../types";
-import { DEFAULT_COLOR_STYLES, DEFAULT_TEXT_STYLES } from "../constants";
+import { HttpStatus } from "shared/types";
 import { HttpError } from "shared/helpers";
+import { BlockTypeEnum, BlockTypeAlias, BlockPayload } from "../types";
+import { DEFAULT_COLOR_STYLES, DEFAULT_TEXT_STYLES } from "../constants";
 
-// enum PayloadType {
-//   Text = "TEXT",
-//   Table = "TABLE",
-// }
-
-export const createPayload = (type: BlockType): BlockPayload => {
-  let payload;
+export const createPayload = (type: BlockTypeAlias): BlockPayload => {
+  let payload: BlockPayload;
 
   switch (type) {
-    case "text":
+    case BlockTypeEnum.Text:
       payload = {
         content: "",
         ...DEFAULT_TEXT_STYLES,
       };
       break;
-    case "table":
+    case BlockTypeEnum.Table:
       payload = {
         table: [
           [
@@ -43,7 +39,7 @@ export const createPayload = (type: BlockType): BlockPayload => {
       break;
 
     default:
-      throw HttpError(400, `Type ${type} is not supported`);
+      throw HttpError(HttpStatus.BadRequest, `Type ${type} is not supported`);
   }
 
   return payload;

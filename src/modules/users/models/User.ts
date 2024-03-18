@@ -50,7 +50,7 @@ export const User = model<IUser, UserModelType>("User", userSchema);
 export const signupSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
-  password: Joi.number().min(6).required(),
+  password: Joi.string().min(6).required(),
 });
 
 export const verifyEmailSchema = Joi.object({

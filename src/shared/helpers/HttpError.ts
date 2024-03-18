@@ -1,13 +1,5 @@
 import { CustomError } from "shared/types";
 
-// enum HttpStatus {
-//   BadRequest = 400,
-//   Unauthorized = 401,
-//   Forbidden = 403,
-//   NotFound = 404,
-//   Conflict = 409,
-// }
-
 interface MessageList {
   [status: number]: string;
 }

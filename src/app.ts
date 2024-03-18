@@ -4,6 +4,7 @@ import cors from "cors";
 
 import pagesRouter from "modules/pages/pages.router";
 import usersRouter from "modules/users/users.router";
+import { HttpStatus } from "shared/types";
 import { errorHandler } from "shared/middlewares";
 
 const app = express();
@@ -18,7 +19,7 @@ app.use("/api/v1/pages", pagesRouter);
 app.use("/api/v1/users", usersRouter);
 
 app.use((_, res) => {
-  res.status(404).json({ message: "Route is not found" });
+  res.status(HttpStatus.NotFound).json({ message: "Route is not found" });
 });
 
 app.use(errorHandler);

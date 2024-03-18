@@ -1,18 +1,20 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
 
-import { updateTextBlockSchema, updateTableBlockSchema } from "../models/Page";
+import { HttpStatus } from "shared/types";
 import { HttpError } from "shared/helpers";
+import { BlockTypeEnum, BlockTypeAlias } from "../types";
+import { updateTextBlockSchema, updateTableBlockSchema } from "../models/Page";
 
 export const validateUpdateBlockBody = (req: Request, _: Response, next: NextFunction) => {
-  const { type } = req.params;
+  const { type }: { type?: BlockTypeAlias } = req.params;
   let schema: ObjectSchema<unknown>;
 
   switch (type) {
-    case "text":
+    case BlockTypeEnum.Text:
       schema = updateTextBlockSchema;
       break;
-    case "table":
+    case BlockTypeEnum.Table:
       schema = updateTableBlockSchema;
       break;
     default:
@@ -21,7 +23,7 @@ export const validateUpdateBlockBody = (req: Request, _: Response, next: NextFun
 
   const { error } = schema.validate(req.body);
   if (error) {
-    throw HttpError(400, error.message);
+    throw HttpError(HttpStatus.BadRequest, error.message);
   }
 
   next();

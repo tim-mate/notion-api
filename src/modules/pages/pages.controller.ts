@@ -1,20 +1,20 @@
 import { Request, Response } from "express";
 
-import { ObjectID } from "shared/helpers";
-import { BlockType, BlockPayload } from "./types";
+import { AuthenticatedRequest, HttpStatus } from "shared/types";
+import { HttpError, ObjectID } from "shared/helpers";
+import { BlockTypeAlias, BlockPayload } from "./types";
 import PageService from "./pages.service";
-import { AuthenticatedRequest } from "shared/types";
-import { HttpError } from "shared/helpers";
 
 class PageController {
   async getAll(req: AuthenticatedRequest, res: Response) {
     const user = req.user;
     if (!user) {
-      throw HttpError(401);
+      throw HttpError(HttpStatus.Unauthorized);
     }
 
     const { page = 1, limit, favorite } = req.query;
-    const pages = await PageService.getAll(user._id, Number(page), Number(limit), Boolean(favorite));
+    const pages = await PageService.getAll(user._id, Number(page), Number(limit), String(favorite));
+
     res.json(pages);
   }
 
@@ -26,11 +26,11 @@ class PageController {
   async add(req: AuthenticatedRequest, res: Response) {
     const user = req.user;
     if (!user) {
-      throw HttpError(401);
+      throw HttpError(HttpStatus.Unauthorized);
     }
 
     const createdPage = await PageService.add(user._id);
-    res.status(201).json(createdPage);
+    res.status(HttpStatus.Created).json(createdPage);
   }
 
   async delete(req: Request, res: Response) {
@@ -53,10 +53,10 @@ class PageController {
   }
 
   async addBlock(req: Request, res: Response) {
-    const { type }: { type: BlockType } = req.body;
+    const { type }: { type: BlockTypeAlias } = req.body;
     const updatedPage = await PageService.addBlock(ObjectID(req.params.id), type);
 
-    res.status(201).json(updatedPage);
+    res.status(HttpStatus.Created).json(updatedPage);
   }
 
   async updateBlock(req: Request, res: Response) {

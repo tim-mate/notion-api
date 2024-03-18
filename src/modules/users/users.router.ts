@@ -1,9 +1,10 @@
 import express from "express";
 
-import { signupSchema, verifyEmailSchema, loginSchema } from "./models/User";
-import UserController from "./users.controller";
 import { validateBody, authenticate } from "shared/middlewares";
 import { ctrlWrapper } from "shared/helpers";
+2;
+import { signupSchema, verifyEmailSchema, loginSchema } from "./models/User";
+import UserController from "./users.controller";
 
 const usersRouter = express.Router();
 

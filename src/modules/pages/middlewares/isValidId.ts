@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { isValidObjectId } from "mongoose";
 
+import { HttpStatus } from "shared/types";
 import { HttpError } from "shared/helpers";
 
 export const isValidId = (req: Request, _: Response, next: NextFunction) => {
@@ -9,23 +10,9 @@ export const isValidId = (req: Request, _: Response, next: NextFunction) => {
 
   ids.forEach((id) => {
     if (id && !isValidObjectId(id)) {
-      next(HttpError(400, `${id} is not a valid id`));
+      next(HttpError(HttpStatus.BadRequest, `${id} is not a valid id`));
     }
   });
 
   next();
-
-  // if (id && !isValidObjectId(id)) {
-  //   next(HttpError(400, `${id} is not a valid id`));
-  // }
-
-  // if (pageId && !isValidObjectId(pageId)) {
-  //   next(HttpError(400, `${pageId} is not a valid id`));
-  // }
-
-  // if (blockId && !isValidObjectId(blockId)) {
-  //   next(HttpError(400, `${blockId} is not a valid id`));
-  // }
-
-  // next();
 };

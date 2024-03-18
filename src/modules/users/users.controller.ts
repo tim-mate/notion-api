@@ -1,14 +1,14 @@
-import { HttpError } from "shared/helpers";
 import { Request, Response } from "express";
 
-import { AuthenticatedRequest } from "shared/types";
+import { AuthenticatedRequest, HttpStatus } from "shared/types";
+import { HttpError } from "shared/helpers";
 import UserService from "./users.service";
 
 class UserController {
   async signup(req: Request, res: Response) {
     const newUser = await UserService.signup(req.body);
 
-    res.status(201).json({
+    res.status(HttpStatus.Created).json({
       user: { email: newUser.email },
     });
   }
@@ -44,17 +44,17 @@ class UserController {
   async logout(req: AuthenticatedRequest, res: Response) {
     const { user } = req;
     if (!user) {
-      throw HttpError(401);
+      throw HttpError(HttpStatus.Unauthorized);
     }
 
     await UserService.logout(user._id);
-    res.status(204).send();
+    res.status(HttpStatus.NoContent).send();
   }
 
   async getCurrent(req: AuthenticatedRequest, res: Response) {
     const { user } = req;
     if (!user) {
-      throw HttpError(401);
+      throw HttpError(HttpStatus.Unauthorized);
     }
 
     res.json({
