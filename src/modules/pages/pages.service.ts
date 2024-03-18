@@ -9,7 +9,7 @@ import { createPayload } from "./helpers/createPayload.js";
 class PageService {
   constructor(private pagesRepository: typeof Page) {}
 
-  getAll(owner: Types.ObjectId, page: number, limit: number, favorite: string | undefined) {
+  getAll(owner: Types.ObjectId, page: number, limit: number, favorite: string | null) {
     const filter = favorite ? { owner, favorite } : { owner };
     const options = limit ? { skip: limit * (page - 1), limit } : {};
 

@@ -12,8 +12,9 @@ class PageController {
       throw HttpError(HttpStatus.Unauthorized);
     }
 
-    const { page = 1, limit, favorite } = req.query;
-    const pages = await PageService.getAll(user._id, Number(page), Number(limit), String(favorite));
+    const { page = 1, limit, favorite: favoriteQuery } = req.query;
+    const favorite = favoriteQuery === "true" || favoriteQuery === "false" ? String(favoriteQuery) : null;
+    const pages = await PageService.getAll(user._id, Number(page), Number(limit), favorite);
 
     res.json(pages);
   }
