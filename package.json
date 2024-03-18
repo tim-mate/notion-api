@@ -6,9 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./dist/bin/server",
     "start:dev": "cross-env NODE_ENV=development nodemon",
-    "build": "tsc -p tsconfig.json",
-    "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "build": "tsc -p tsconfig.json"
   },
   "keywords": [],
   "author": "",
