@@ -1,10 +1,10 @@
 import express from "express";
 
-import { validateBody, authenticate } from "shared/middlewares";
-import { ctrlWrapper } from "shared/helpers";
+import { validateBody, authenticate } from "../../shared/middlewares";
+import { ctrlWrapper } from "../../shared/helpers";
 2;
-import { signupSchema, verifyEmailSchema, loginSchema } from "./models/User";
-import UserController from "./users.controller";
+import { signupSchema, verifyEmailSchema, loginSchema } from "./models/User.js";
+import UserController from "./users.controller.js";
 
 const usersRouter = express.Router();
 

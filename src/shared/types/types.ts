@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { Types, Document } from "mongoose";
 
-import { IUser } from "modules/users/models/User";
+import { IUser } from "../../modules/users/models/User.js";
 
 export interface CustomError extends Error {
   status?: number;

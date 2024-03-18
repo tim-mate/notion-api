@@ -1,5 +1,5 @@
-import { HttpStatus } from "shared/types";
-import { HttpError } from "shared/helpers";
+import { HttpStatus } from "../../../shared/types";
+import { HttpError } from "../../../shared/helpers";
 import { BlockTypeEnum, BlockTypeAlias, BlockPayload } from "../types";
 import { DEFAULT_COLOR_STYLES, DEFAULT_TEXT_STYLES } from "../constants";
 

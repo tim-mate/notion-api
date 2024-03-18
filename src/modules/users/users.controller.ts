@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
-import { AuthenticatedRequest, HttpStatus } from "shared/types";
-import { HttpError } from "shared/helpers";
-import UserService from "./users.service";
+import { AuthenticatedRequest, HttpStatus } from "../../shared/types";
+import { HttpError } from "../../shared/helpers";
+import UserService from "./users.service.js";
 
 class UserController {
   async signup(req: Request, res: Response) {

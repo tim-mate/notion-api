@@ -2,10 +2,10 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 
-import pagesRouter from "modules/pages/pages.router";
-import usersRouter from "modules/users/users.router";
-import { HttpStatus } from "shared/types";
-import { errorHandler } from "shared/middlewares";
+import pagesRouter from "./modules/pages/pages.router.js";
+import usersRouter from "./modules/users/users.router.js";
+import { HttpStatus } from "./shared/types";
+import { errorHandler } from "./shared/middlewares";
 
 const app = express();
 

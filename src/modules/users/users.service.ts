@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
 
-import { HttpStatus } from "shared/types";
-import { HttpError } from "shared/helpers";
-import { User } from "./models/User";
+import { HttpStatus } from "../../shared/types";
+import { HttpError } from "../../shared/helpers";
+import { User } from "./models/User.js";
 import { SignupUserDto, LoginUserDto } from "./types";
 import { sendEmail } from "./helpers";
 

@@ -1,4 +1,4 @@
-import { CustomError } from "shared/types";
+import { CustomError } from "../types";
 
 interface MessageList {
   [status: number]: string;

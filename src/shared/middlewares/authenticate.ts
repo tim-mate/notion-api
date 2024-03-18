@@ -2,9 +2,9 @@ import { Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
-import { AuthenticatedRequest, HttpStatus } from "shared/types";
-import { HttpError, ObjectID } from "shared/helpers";
-import { User } from "modules/users/models/User";
+import { AuthenticatedRequest, HttpStatus } from "../types";
+import { HttpError, ObjectID } from "../helpers";
+import { User } from "../../modules/users/models/User.js";
 
 dotenv.config();
 const { SECRET_KEY } = process.env;

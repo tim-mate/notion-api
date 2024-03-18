@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-import { AuthenticatedRequest, HttpStatus } from "shared/types";
-import { HttpError, ObjectID } from "shared/helpers";
+import { AuthenticatedRequest, HttpStatus } from "../../shared/types";
+import { HttpError, ObjectID } from "../../shared/helpers";
 import { BlockTypeAlias, BlockPayload } from "./types";
-import PageService from "./pages.service";
+import PageService from "./pages.service.js";
 
 class PageController {
   async getAll(req: AuthenticatedRequest, res: Response) {

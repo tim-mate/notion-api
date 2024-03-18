@@ -1,10 +1,10 @@
 import express from "express";
 
-import { validateBody, authenticate } from "shared/middlewares";
-import { ctrlWrapper } from "shared/helpers";
-import { updateStatusSchema, renameSchema, addBlockSchema } from "./models/Page";
+import { validateBody, authenticate } from "../../shared/middlewares";
+import { ctrlWrapper } from "../../shared/helpers";
+import { updateStatusSchema, renameSchema, addBlockSchema } from "./models/Page.js";
 import { isValidId, isValidType, validateUpdateBlockBody } from "./middlewares";
-import PageController from "./pages.controller";
+import PageController from "./pages.controller.js";
 
 const pagesRouter = express.Router();
 

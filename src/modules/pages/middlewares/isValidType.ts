@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
-import { HttpStatus } from "shared/types";
-import { HttpError } from "shared/helpers";
+import { HttpStatus } from "../../../shared/types";
+import { HttpError } from "../../../shared/helpers";
 import { BLOCK_TYPES } from "../constants";
 
 export const isValidType = (req: Request, _: Response, next: NextFunction) => {

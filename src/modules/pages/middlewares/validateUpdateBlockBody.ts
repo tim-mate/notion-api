@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
 
-import { HttpStatus } from "shared/types";
-import { HttpError } from "shared/helpers";
+import { HttpStatus } from "../../../shared/types";
+import { HttpError } from "../../../shared/helpers";
 import { BlockTypeEnum, BlockTypeAlias } from "../types";
-import { updateTextBlockSchema, updateTableBlockSchema } from "../models/Page";
+import { updateTextBlockSchema, updateTableBlockSchema } from "../models/Page.js";
 
 export const validateUpdateBlockBody = (req: Request, _: Response, next: NextFunction) => {
   const { type }: { type?: BlockTypeAlias } = req.params;

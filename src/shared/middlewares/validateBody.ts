@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
 
-import { HttpStatus } from "shared/types";
-import { HttpError } from "shared/helpers";
+import { HttpStatus } from "../types";
+import { HttpError } from "../helpers";
 
 export const validateBody = (schema: ObjectSchema<unknown>) => {
   const fn = (req: Request, _: Response, next: NextFunction) => {

@@ -1,10 +1,10 @@
 import { Types } from "mongoose";
 
-import { HttpStatus } from "shared/types";
-import { HttpError } from "shared/helpers";
+import { HttpStatus } from "../../shared/types";
+import { HttpError } from "../../shared/helpers";
 import { BlockTypeAlias, BlockPayload } from "./types";
-import { Page } from "./models/Page";
-import { createPayload } from "./helpers/createPayload";
+import { Page } from "./models/Page.js";
+import { createPayload } from "./helpers/createPayload.js";
 
 class PageService {
   constructor(private pagesRepository: typeof Page) {}
