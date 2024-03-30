@@ -7,6 +7,9 @@ export const createPayload = (type: BlockTypeAlias): BlockPayload => {
   let payload: BlockPayload;
 
   switch (type) {
+    case BlockTypeEnum.BigHeading:
+    case BlockTypeEnum.MediumHeading:
+    case BlockTypeEnum.SmallHeading:
     case BlockTypeEnum.Text:
       payload = {
         content: "",

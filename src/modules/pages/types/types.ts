@@ -1,9 +1,12 @@
 export enum BlockTypeEnum {
+  BigHeading = "h1",
+  MediumHeading = "h2",
+  SmallHeading = "h3",
   Text = "text",
   Table = "table",
 }
 
-export type BlockTypeAlias = "text" | "table";
+export type BlockTypeAlias = "h1" | "h2" | "h3" | "text" | "table";
 
 interface TextStyles {
   color: string;
@@ -12,6 +15,10 @@ interface TextStyles {
   italic: boolean;
   underlined: boolean;
   strikethrough: boolean;
+}
+
+interface HeadingPayload extends TextStyles {
+  content: string;
 }
 
 interface TextBlockPayload extends TextStyles {
@@ -28,4 +35,4 @@ interface TableBlockPayload {
   headerColumn: boolean;
 }
 
-export type BlockPayload = TextBlockPayload | TableBlockPayload;
+export type BlockPayload = HeadingPayload | TextBlockPayload | TableBlockPayload;

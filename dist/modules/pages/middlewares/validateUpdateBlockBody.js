@@ -9,6 +9,9 @@ const validateUpdateBlockBody = (req, _, next) => {
     const { type } = req.params;
     let schema;
     switch (type) {
+        case types_2.BlockTypeEnum.BigHeading:
+        case types_2.BlockTypeEnum.MediumHeading:
+        case types_2.BlockTypeEnum.SmallHeading:
         case types_2.BlockTypeEnum.Text:
             schema = Page_js_1.updateTextBlockSchema;
             break;

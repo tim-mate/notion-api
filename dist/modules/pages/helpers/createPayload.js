@@ -8,6 +8,9 @@ const constants_1 = require("../constants");
 const createPayload = (type) => {
     let payload;
     switch (type) {
+        case types_2.BlockTypeEnum.BigHeading:
+        case types_2.BlockTypeEnum.MediumHeading:
+        case types_2.BlockTypeEnum.SmallHeading:
         case types_2.BlockTypeEnum.Text:
             payload = {
                 content: "",

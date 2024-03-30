@@ -11,6 +11,9 @@ export const validateUpdateBlockBody = (req: Request, _: Response, next: NextFun
   let schema: ObjectSchema<unknown>;
 
   switch (type) {
+    case BlockTypeEnum.BigHeading:
+    case BlockTypeEnum.MediumHeading:
+    case BlockTypeEnum.SmallHeading:
     case BlockTypeEnum.Text:
       schema = updateTextBlockSchema;
       break;
