@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const types_1 = require("../../shared/types");
 const helpers_1 = require("../../shared/helpers");
+const types_2 = require("./types");
 const Page_js_1 = require("./models/Page.js");
 const createPayload_js_1 = require("./helpers/createPayload.js");
 class PageService {
@@ -21,8 +22,10 @@ class PageService {
         }
         return page;
     }
-    add(owner) {
-        return this.pagesRepository.create({ owner });
+    async add(owner) {
+        const page = await this.pagesRepository.create({ owner });
+        const pageWithBlock = await this.addBlock(page._id, types_2.BlockTypeEnum.Text);
+        return pageWithBlock;
     }
     async delete(id) {
         const deletedPage = await this.pagesRepository.findByIdAndDelete(id);

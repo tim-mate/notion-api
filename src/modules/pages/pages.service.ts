@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 
 import { HttpStatus } from "../../shared/types";
 import { HttpError } from "../../shared/helpers";
-import { BlockTypeAlias, BlockPayload } from "./types";
+import { BlockTypeAlias, BlockTypeEnum, BlockPayload } from "./types";
 import { Page } from "./models/Page.js";
 import { createPayload } from "./helpers/createPayload.js";
 
@@ -25,8 +25,11 @@ class PageService {
     return page;
   }
 
-  add(owner: Types.ObjectId) {
-    return this.pagesRepository.create({ owner });
+  async add(owner: Types.ObjectId) {
+    const page = await this.pagesRepository.create({ owner });
+    const pageWithBlock = await this.addBlock(page._id, BlockTypeEnum.Text);
+
+    return pageWithBlock;
   }
 
   async delete(id: Types.ObjectId) {
